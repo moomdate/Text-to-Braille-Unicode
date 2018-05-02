@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Text to Braille Unicode</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<hr>
+		<center><h3>Text to Braille Unicode</h3></center>
+		<hr>
+		<textarea id="textInput" class="form-control"></textarea>
+		<button id="converst" class="btn btn-danger btn-block">Hex</button>
+		<textarea id="textOutput" class="form-control"></textarea>
+		Data length:
+		<label id="length__" class="badge badge-warning"></label>
+	</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+
+		$("#converst").click(function(){
+			var text_ = $('#textInput').val();
+			var text_out = "";
+			$('#length__').text(text_.length);
+
+			$.getJSON( "data/unicode.json", function(data_9) {
+				for(var i = 0; i< text_.length;i++){
+					var unicode = text_[i];
+					text_out+=data_9[unicode];
+					console.log(text_out);
+					
+					if(i<text_.length-1)
+						text_out+= ", ";	
+				}
+				$('#textOutput').text(text_out);
+			});
+			//alert(text_out);
+		});
+	});
+</script>
+</html>
